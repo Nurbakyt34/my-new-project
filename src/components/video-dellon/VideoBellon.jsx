@@ -1,22 +1,11 @@
 
 import NewLogo from '../../assets/new-logo.jpg';
-import { useState } from 'react';
-import { FaWhatsapp } from "react-icons/fa";
-import { LiaTelegramPlane } from "react-icons/lia";
-import { Link } from 'react-router';
+
 
 
 function VideoBellon() {
 
-    const [isOpen, setIsOpen] = useState(false);
-
-    const handleWhatsAppClick = () => {
-        window.open('https://wa.me/your-number', '_blank');
-    };
-
-    const handleTelegramClick = () => {
-        window.open('https://t.me/your-username', '_blank');
-    };
+ 
 
     const showcaseItems = [
         {
@@ -97,54 +86,7 @@ function VideoBellon() {
                     </a>
                 ))}
             </div>
-            <hr className='border-gray-300 mt-[120px] mb-[40px]' />
 
-
-            <div className='flex justify-between'>
-
-                <Link to="/">
-                    <div className="bg-teal-700 flex items-center justify-center text-center w-[190px] h-[35px] text-white text-[30px] font-bold text-2xl tracking-widest cursor-pointer">
-                        BELLONA
-                    </div>
-                </Link>
-
-
-                <div className="relative flex items-center gap-4">
-
-                    <p>+996 777 80 51 54</p>
-
-                    <button
-                        className="bg-white text-teal-600 border-2  border-teal-600 h-[40px] px-6 py-3 rounded-full flex items-center space-x-2 hover:bg-teal-600 hover:text-white hover:border-teal-600 transition-colors duration-200"
-                        onClick={() => setIsOpen(!isOpen)}
-                        onBlur={() => setTimeout(() => setIsOpen(false), 200)}
-                    >
-                        <span>написать в</span>
-                        <FaWhatsapp />
-                        <LiaTelegramPlane />
-                    </button>
-
-                    {isOpen && (
-                        <div className="absolute top-full mt-2 w-64 bg-black rounded-lg shadow-lg overflow-hidden">
-                            <button
-                                className="w-full px-4 py-3 flex items-center space-x-3 text-white hover:bg-gray-800 transition-colors duration-200"
-                                onClick={handleWhatsAppClick}
-                            >
-                                <FaWhatsapp />
-                                <span>Написать в WhatsApp</span>
-                            </button>
-                            <button
-                                className="w-full px-4 py-3 flex items-center space-x-3 text-white hover:bg-gray-800 transition-colors duration-200"
-                                onClick={handleTelegramClick}
-                            >
-                                <LiaTelegramPlane />
-                                <span>Написать в Telegram</span>
-                            </button>
-                        </div>
-
-                    )}
-                </div>
-
-            </div>
         </div>
     );
 }

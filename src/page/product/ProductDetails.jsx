@@ -1,63 +1,213 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router'; 
+import { useParams } from 'react-router';
+import { ChevronUp, ChevronDown } from 'lucide-react';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 
 const ProductDetails = () => {
-    const { id } = useParams(); 
+    const { id } = useParams();
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [thumbStartIndex, setThumbStartIndex] = useState(0);
+    const thumbnailsToShow = 3;
 
     const product = {
         1: {
             name: "Столовый гарнитур Havana",
             images: [
-                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F520%2Fthumbs%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-58hvn8015qsze-2.jpg&w=1920&q=100",
-                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F520%2Fthumbs%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-58hvn8015qsze-2.jpg&w=1920&q=100",
-                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F42%2Fthumbs%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-57rbypb00000000-21.jpg&w=1920&q=100"
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F520%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-58hvn8015qsze-5.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F520%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-58hvn8015qsze-6.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F520%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-58hvn8015qsze-7.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F520%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-58hvn8015qsze-8.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F520%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-58hvn8015qsze-9.jpg&w=1920&q=75"
             ],
-            description: "Обзор стола, описание материалов и дизайнерские особенности.",
+            description: "Консоль+Консольное зеркало+Раздвижной обеденный стол+6 стульев",
         },
         2: {
             name: "Комплект мягкой мебели Ruby",
             images: [
-                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F42%2Fthumbs%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-57rbypb00000000-21.jpg&w=1920&q=100",
-                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F42%2Fthumbs%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-57rbypb00000000-21.jpg&w=1920&q=100"
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F42%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-57rbypb00000000-21.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F42%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-57rbypb00000000-22.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F42%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-57rbypb00000000-24.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F42%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-57rbypb00000000-25.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F42%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-57rbypb00000000-26.jpg&w=1920&q=75"
             ],
-            description: "Описание мягкой мебели, материалы, стилистика и рекомендации.",
+            description: "1 трехместный диван + 1 кресло",
         },
-        // Добавьте другие товары с их изображениями
+        3: {
+            name: "Комплект мягкой мебели Cozy S",
+            images: [
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F35%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-57czspb00000000-15.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F35%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-57czspb00000000-16.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F35%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-57czspb00000000-17.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F35%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-57czspb00000000-18.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F35%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-57czspb00000000-19.jpg&w=1920&q=75"
+            ],
+            description: "1 трехместный диван + 1 кресло",
+        },
+        4: {
+            name: "Спальный гарнитур Napoli",
+            images: [
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fideacdn.net%2Fidea%2Fkc%2F78%2Fmyassets%2Fproducts%2F670%2F1-napoli-yatak-odasi-00.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fideacdn.net%2Fidea%2Fkc%2F78%2Fmyassets%2Fproducts%2F670%2F2-napoli-yatak-odasi-01_min.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fideacdn.net%2Fidea%2Fkc%2F78%2Fmyassets%2Fproducts%2F670%2F6-napoli-yatak-odasi-05_min.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fideacdn.net%2Fidea%2Fkc%2F78%2Fmyassets%2Fproducts%2F670%2F7-napoli-yatak-odasi-06_min.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fideacdn.net%2Fidea%2Fkc%2F78%2Fmyassets%2Fproducts%2F670%2F8-napoli-yatak-odasi-08_min.jpg&w=1920&q=75"
+            ],
+            description: "5-дверный шкаф + Макияжный стол + Макияжное зеркало + 160 см Изголовье кровати + 2 Прикроватные тумбочки",
+        },
+        5: {
+            name: "Комплект мягкой мебели Flexy",
+            images: [
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fideacdn.net%2Fidea%2Fkc%2F78%2Fmyassets%2Fproducts%2F781%2F1-flexy-koltuk-takimlari-03_min.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fideacdn.net%2Fidea%2Fkc%2F78%2Fmyassets%2Fproducts%2F781%2F2-flexy-koltuk-takimlari-00_min.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fideacdn.net%2Fidea%2Fkc%2F78%2Fmyassets%2Fproducts%2F781%2F6-flexy-koltuk-takimlari-17_min.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fideacdn.net%2Fidea%2Fkc%2F78%2Fmyassets%2Fproducts%2F781%2F7-flexy-koltuk-takimlari-47_min.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fideacdn.net%2Fidea%2Fkc%2F78%2Fmyassets%2Fproducts%2F781%2F1-flexy-koltuk-takimlari-03_min.jpg&w=1920&q=75"
+            ],
+            description: "1 трехместный диван + 1 кресло",
+        },
+        6: {
+            name: "Матрас Kolajen Linen",
+            images: [
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F1008%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-27kjn00901900400-9.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F1008%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-27kjn00901900400-11.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F1008%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-27kjn00901900400-12.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F1008%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-27kjn00901900400-13.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F1008%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-27kjn00901900400-15.jpg&w=1920&q=75"
+            ],
+            description: "хороший товар 👌",
+        },
+        7: {
+            name: "Столовый гарнитур Montego",
+            images: [
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F533%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-58mtg8015ldld-28.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F533%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-58mtg8015ldld-31.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F533%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-58mtg8015ldld-32.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F533%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-58mtg8015ldld-33.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F533%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-58mtg8015ldld-35.jpg&w=1920&q=75"
+            ],
+            description: "Консоль+Консольное зеркало+Раздвижной обеденный стол+6 стульев",
+        },
+        8: {
+            name: "Угловой диван Rolden",
+            images: [
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F45%2F1-1-rolden-kose-tk-08.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F45%2F3-1-rolden-kose-tk-00.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F45%2F5-1-rolden-kose-tk-04.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F45%2F2-rolden-kose-tk-082.jpg&w=1920&q=75",
+                "https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F45%2F4-1-rolden-kose-tk-002.jpg&w=1920&q=75"
+            ],
+            description: "1 угловой диван",
+        },
     };
 
-    const currentProduct = product[id];
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-    const handleImageClick = (index) => {
-        setCurrentImageIndex(index);
+    const currentProduct = product[id];
+
+    const handlePrevImage = () => {
+        const newIndex = currentImageIndex - 1;
+        if (newIndex >= 0) {
+            setCurrentImageIndex(newIndex);
+            // автоматически прокручиваем миниатюры вверх
+            if (newIndex < thumbStartIndex) {
+                setThumbStartIndex(newIndex);
+            }
+        }
+    };
+
+    const handleNextImage = () => {
+        const newIndex = currentImageIndex + 1;
+        if (newIndex < currentProduct.images.length) {
+            setCurrentImageIndex(newIndex);
+            // автоматически прокручиваем миниатюры вниз
+            if (newIndex >= thumbStartIndex + thumbnailsToShow) {
+                setThumbStartIndex(newIndex - thumbnailsToShow + 1);
+            }
+        }
     };
 
     return (
-        <div className='app-container mt-[50px]'>
-            
-            <h2 className="text-4xl text-center mt-[20px] mb-[50px] font-bold">{currentProduct?.name}</h2>
+        <div className='app-container   p-12 mt-[130px]'>
+            <Breadcrumbs />
+            <div className='fle'>
 
-            <div className="product-detail mt-[60px]">
-                <div className="main-image">
-                    <img
-                        src={currentProduct?.images[currentImageIndex]}
-                        alt={currentProduct?.name}
-                        className="h-[300px] w-[400px] rounded object-cover mx-auto"
-                    />
-                </div>
-                <div className="image-gallery mt-4 flex justify-center gap-4">
-                    {currentProduct?.images.map((image, index) => (
+                <div className="flex flex-col lg:flex-row gap-8 mt-[20px] mb-[130px]">
+                    {/* Левая панель — миниатюры + стрелки */}
+                    <div className="flex flex-col items-center">
+                        <button
+                            className="mb-2 p-1 rounded-full bg-gray-200 hover:bg-gray-300"
+                            onClick={handlePrevImage}
+                            disabled={currentImageIndex === 0}
+                        >
+                            <ChevronUp size={24} />
+                        </button>
+
+                        <div className="flex flex-col gap-3">
+                            {currentProduct.images
+                                .slice(thumbStartIndex, thumbStartIndex + thumbnailsToShow)
+                                .map((image, index) => {
+                                    const realIndex = thumbStartIndex + index;
+                                    return (
+                                        <img
+                                            key={realIndex}
+                                            src={image}
+                                            alt={`thumb-${realIndex}`}
+                                            onClick={() => setCurrentImageIndex(realIndex)}
+                                            className={`w-[130px] h-[150px] object-cover rounded-2xl cursor-pointer border-1 ${currentImageIndex === realIndex
+                                                ? 'border-blue-500'
+                                                : 'border-transparent'
+                                                }`}
+                                        />
+                                    );
+                                })}
+                        </div>
+
+                        <button
+                            className="mt-2 p-1 rounded-full bg-gray-200 hover:bg-gray-300"
+                            onClick={handleNextImage}
+                            disabled={currentImageIndex === currentProduct.images.length - 1}
+                        >
+                            <ChevronDown size={24} />
+                        </button>
+                    </div>
+
+                    {/* Правая панель — главное изображение и описание */}
+                    <div className="flex-1 flex flex-col items-center lg:items-start">
                         <img
-                            key={index}
-                            src={image}
-                            alt={`product-${index}`}
-                            className="w-20 h-20 object-cover rounded cursor-pointer"
-                            onClick={() => handleImageClick(index)}
+                            src={currentProduct?.images[currentImageIndex]}
+                            alt={currentProduct?.name}
+                            className="w-full max-w-[500px] h-[470px] mt-[42px] rounded-2xl object-cover"
                         />
-                    ))}
+                    </div>
                 </div>
-                <p className="mt-4 text-center">{currentProduct?.description}</p>
+
+                <div className='mt-[-640px]'>
+
+                    <h2 className="text-3xl mt-[px] ml-[700px] mb-8 font-bold">{currentProduct?.name}</h2>
+                    <p className='text-[gray] ml-[700px]'>Содержание комплекта:</p>
+                    <p className="mt-[px] mr-[50] pl-[700px] ">{currentProduct?.description}</p>
+
+                    <div className='flex gap-5 ml-[702px] mt-6'>
+
+                        <button
+                            className="w-[200px] ml-[] h-[40px] bg-teal-700 text-white rounded-full px-3 py-1 text-sm border border-transparent 
+                   hover:bg-white hover:text-teal-700 hover:border-teal-700 transition-all duration-300"
+                        >
+                            Заказать Звонок
+                        </button>
+
+                        <button
+                            className="w-[200px] h-[40px]  bg-teal-700 text-white rounded-full px-3 py-1 text-sm border border-transparent 
+                   hover:bg-white hover:text-teal-700 hover:border-teal-700 transition-all duration-300"
+                        >
+                            Написать в WhatsApp
+                        </button>
+                    </div>
+
+
+                </div>
             </div>
+
+
         </div>
     );
 };

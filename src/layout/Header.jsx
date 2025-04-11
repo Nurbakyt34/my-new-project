@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { FaWhatsapp } from "react-icons/fa";
 import { LiaTelegramPlane } from "react-icons/lia";
 import { Link } from 'react-router';
-// import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 
 
 
@@ -22,6 +21,24 @@ const Header = () => {
     const handleTelegramClick = () => {
         window.open('https://t.me/your-username', '_blank');
     };
+
+    const categories = {
+        'Гостиная': [],
+        'Столовая': [],
+        'Спальня': [
+          'Спальные гарнитуры',
+          'Гардероб и шкафы',
+          'Кровати',
+          'Прикроватные тумбочки',
+          'Столики для макияжа',
+          'Зеркала',
+          'Комоды',
+        ],
+        'Кровати и матрасы': [],
+        'Детская': [],
+        'Для сада': [],
+        'Комплектующие': [],
+      };
 
     return (
         <div className='app-container '>
@@ -131,18 +148,17 @@ const Header = () => {
                 </div>
     
                 <main className="p-4">
-                    {/* <Breadcrumbs /> */}
                     {/* Здесь отображается контент страниц */}
                 </main>
     
-                <nav className="flex gap-[35px] text-xl mt-[-15px] ml-[15px]  mb-[20px]">
-                    <Link to="/">Гостиная</Link>
-                    <Link to="/">Столовая</Link>
-                    <Link to="/">Спальня</Link>
-                    <Link to="/">Кровати и матрасы</Link>
-                    <Link to="/">Детская</Link>
-                    <Link to="/">Для сада</Link>
-                    <Link to="/">Комплектующие</Link>
+                <nav className="flex gap-[35px] text-xl  mt-[-15px] ml-[15px]  mb-[20px]">
+                    <Link to="/gostin" className='hover:text-teal-600 '>Гостиная</Link>
+                    <Link to="/stolov" className='hover:text-teal-600 '>Столовая</Link>
+                    <Link to="/spalny" className='hover:text-teal-600 '>Спальня</Link>
+                    <Link to="/kravat" className='hover:text-teal-600 '>Кровати и матрасы</Link>
+                    <Link to="/kids" className='hover:text-teal-600 '>Детская</Link>
+                    <Link to="/sad" className='hover:text-teal-600 '>Для сада</Link>
+                    <Link to="/complect" className='hover:text-teal-600 '>Комплектующие</Link>
                 </nav>
             </header>
             
