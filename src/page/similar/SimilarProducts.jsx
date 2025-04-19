@@ -3,7 +3,6 @@ import { useParams } from 'react-router';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 
 
-// Пример товаров
 const products = [
   { id: 1, categoryId: 11, title: 'Изголовье Leny', image: 'https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F1141%2Fthumbs%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-22ley2232nyny-2.jpg&w=1080&q=75' },
   { id: 1, categoryId: 11, title: '', image: 'https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F1140%2Fthumbs%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-22lwe2226xzxz-10.jpg&w=1080&q=75' },
@@ -88,10 +87,8 @@ const products = [
 function SimilarProducts() {
   const { category } = useParams();
 
-  // Преобразуем category в подходящий ID (если потребуется, можно сделать это по-другому)
   const categorySlug = decodeURIComponent(category);
   
-  // Найдем ID категории
   const categoryIdMap = {
     'кровати-и-матрасы': 11,
     'угловые-диваны': 12,
@@ -99,6 +96,7 @@ function SimilarProducts() {
     'кресла': 14,
     'тв-тумбы': 15,
     'столы': 16,
+
     'стулья': 17,
     'журнальные-столики': 18
   };
@@ -122,7 +120,7 @@ function SimilarProducts() {
                 src={product.image} 
                 alt={product.title} 
                 className="object-cover w-full rounded-[10px] hover:shadow-lg  transition h-full" 
-                onError={(e) => e.target.src = 'https://via.placeholder.com/150'} // Заглушка на случай ошибки загрузки
+                onError={(e) => e.target.src = 'https://via.placeholder.com/150'}
               />
             </div>
             <h3 className="text-xl font-semibold text-center mt-4">{product.title}</h3>

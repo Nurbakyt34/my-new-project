@@ -106,10 +106,10 @@ function Footer() {
     ];
 
     return (
-        <footer className="app-container bg-white ">
+        <footer className="app-container relative bg-white ">
 
 
-            <hr className='border-gray-300 mt-[320px] mb-[35px]' />
+            <hr className='border-gray-300 mt-[120px] mb-[35px]' />
 
             <div className='flex justify-between'>
 

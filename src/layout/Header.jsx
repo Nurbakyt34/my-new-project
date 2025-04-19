@@ -4,13 +4,80 @@ import { IoIosSearch } from "react-icons/io";
 import { useState } from 'react';
 import { FaWhatsapp } from "react-icons/fa";
 import { LiaTelegramPlane } from "react-icons/lia";
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 
 
+const categories = [
+    {
+        title: "Гостиная",
+        path: "/gostin",
+        subcategories: ["Комплекты мягкой мебели", "Угловые диваны", "Диваны", "Диваны-слиперы"],
+        image: "https://link-drugoy-kartinki.jpg",
+    },
+    {
+        title: "Столовая",
+        path: "/stolov",
+        subcategories: [
+            "Столовые гарнитуры",
+            "Комплекты кухонных столов",
+            "Столы",
+            "Стулья",
+            "Консоли",
+            "Зеркала",
+            "Витрины",
+            "Пеналы",
+        ],
+        image: "https://link-kartinki.jpg",
+    },
+    {
+        title: "Спальня",
+        path: "/spalny",
+        subcategories: ["Спальные гарнитуры", "Гардероб и шкафы", "Кровати", "Прикроватные тумбочки"],
+        image: "https://link-kartinki-dlya-spalni.jpg",
+    },
+    {
+        title: "Кровати и матрасы",
+        path: "/kravat",
+        subcategories: ["Матрасы", "Кровати", "Изголовья кроватей"],
+        image: "https://link-kartinki-dlya-detskoj.jpg",
+    },
+    {
+        title: "Детская",
+        path: "/kids",
+        subcategories: ["Юношеские гарнитуры", "Гардеробы и шкафы", "Рабочие столы"],
+        image: "https://link-kartinki-dlya-detskoj.jpg",
+    },
+    {
+        title: "Для сада",
+        path: "/sad",
+        subcategories: ["Мини комплекты", "Комплекты наружных столов", "Комплекты уголков"],
+        image: "https://link-kartinki-dlya-detskoj.jpg",
+    },
+    {
+        title: "Комплектующие",
+        path: "/complect",
+        subcategories: ["Мебель для прихожей", "Тумбы под ТВ", "Журнальные столики"],
+        image: "https://link-kartinki-dlya-detskoj.jpg",
+    },
+];
 
 const Header = () => {
 
+    const [activeCategory, setActiveCategory] = useState(null);
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const handleMouseEnter = (cat) => {
+        setActiveCategory(cat);
+        setMenuOpen(true);
+    };
+
+    const handleMouseLeave = () => {
+        setMenuOpen(false);
+    };
+
+    const [searchQuery, setSearchQuery] = useState('');
+    const navigate = useNavigate();
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -22,44 +89,53 @@ const Header = () => {
         window.open('https://t.me/your-username', '_blank');
     };
 
-    const categories = {
-        'Гостиная': [],
-        'Столовая': [],
-        'Спальня': [
-          'Спальные гарнитуры',
-          'Гардероб и шкафы',
-          'Кровати',
-          'Прикроватные тумбочки',
-          'Столики для макияжа',
-          'Зеркала',
-          'Комоды',
-        ],
-        'Кровати и матрасы': [],
-        'Детская': [],
-        'Для сада': [],
-        'Комплектующие': [],
-      };
+    // const categories = {
+    //     'Гостиная': [],
+    //     'Столовая': [],
+    //     'Спальня': [
+    //         'Спальные гарнитуры',
+    //         'Гардероб и шкафы',
+    //         'Кровати',
+    //         'Прикроватные тумбочки',
+    //         'Столики для макияжа',
+    //         'Зеркала',
+    //         'Комоды',
+    //     ],
+    //     'Кровати и матрасы': [],
+    //     'Детская': [],
+    //     'Для сада': [],
+    //     'Комплектующие': [],
+    // };
+
+    const handleSearch = () => {
+        if (searchQuery.trim()) {
+            navigate(`/search?query=${encodeURIComponent(searchQuery.trim())}`);
+            setSearchQuery(''); // очищаем поле ввода после отправки
+        }
+    };
+
 
     return (
+
         <div className='app-container '>
-            
+
             <header className="fixed  z-50 bg-white ">
-    
+
                 <div className=" flex items-center justify-between  mt-[30px] ">
                     <Link to="/">
                         <div className="bg-teal-700 flex items-center justify-center text-center w-[190px] h-[35px] text-white text-[30px] font-bold text-2xl tracking-widest cursor-pointer">
                             BELLONA
                         </div>
                     </Link>
-    
+
                     <nav className="flex gap-4 ml-[-5px] mr-[20px] text-xl font-medium ">
                         <Link to="/about">О нас</Link>
                         <Link to="/catalog">Каталоги</Link>
                         <Link to="/tours">3D туры</Link>
                         {/* <Link to="/doqu" className="text-gray-400">DOQU HOME</Link> */}
                     </nav>
-    
-    
+
+
                     <div className="flex items-center  mr-[30px] gap-6">
                         <a
                             href="#"
@@ -98,19 +174,22 @@ const Header = () => {
                             </svg>
                         </a>
                     </div>
-    
+
                     <div className="flex items-center border rounded-full px-2 py-1 h-[40px] w-[250px]   border-gray-300">
                         <IoIosSearch className=" text-gray-500 w-5 h-5" />
                         <input
                             type="text"
+                            value={searchQuery}
                             placeholder="Введите название"
+                            onChange={(e) => setSearchQuery(e.target.value)}
                             className="ml-2 text-sm font-semibold tracking-wid px-2 w-[140px] py-1 border-none focus:outline-none"
                         />
-                        <button className="ml-auto h-[32px]  tracking-wide  bg-teal-700 text-white rounded-full px-3 py-1 text-sm border border-transparent hover:bg-white hover:text-teal-700 hover:border-teal-700 transition-all duration-200">
+                        <button className="ml-auto h-[32px]  tracking-wide  bg-teal-700 text-white rounded-full px-3 py-1 text-sm border border-transparent hover:bg-white hover:text-teal-700 hover:border-teal-700 transition-all duration-200"
+                            onClick={handleSearch} >
                             Поиск
                         </button>
                     </div>
-    
+
                     <div className="relative ">
                         <button
                             className="bg-white text-teal-600 border-2  border-teal-600 h-[40px] px-6 py-3 rounded-full flex items-center space-x-2 hover:bg-teal-600 hover:text-white hover:border-teal-600 transition-colors duration-200"
@@ -121,7 +200,7 @@ const Header = () => {
                             <FaWhatsapp />
                             <LiaTelegramPlane />
                         </button>
-    
+
                         {isOpen && (
                             <div className="absolute top-full mt-2 w-64 bg-black rounded-lg shadow-lg overflow-hidden">
                                 <button
@@ -139,31 +218,76 @@ const Header = () => {
                                     <span>Написать в Telegram</span>
                                 </button>
                             </div>
-    
+
                         )}
                     </div>
                 </div>
-    
+
                 <div className=" w-[1200px] border-b border-gray-200 mt-[40px] ">
                 </div>
-    
+
                 <main className="p-4">
                     {/* Здесь отображается контент страниц */}
                 </main>
-    
-                <nav className="flex gap-[35px] text-xl  mt-[-15px] ml-[15px]  mb-[20px]">
-                    <Link to="/gostin" className='hover:text-teal-600 '>Гостиная</Link>
-                    <Link to="/stolov" className='hover:text-teal-600 '>Столовая</Link>
-                    <Link to="/spalny" className='hover:text-teal-600 '>Спальня</Link>
-                    <Link to="/kravat" className='hover:text-teal-600 '>Кровати и матрасы</Link>
-                    <Link to="/kids" className='hover:text-teal-600 '>Детская</Link>
-                    <Link to="/sad" className='hover:text-teal-600 '>Для сада</Link>
-                    <Link to="/complect" className='hover:text-teal-600 '>Комплектующие</Link>
+
+                <nav
+                    className="flex gap-[35px] text-xl mt-[-12px] ml-[15px] mb-[30px] "
+                    onMouseLeave={handleMouseLeave}
+                >
+                    {categories.map((cat, idx) => (
+                        <div
+                            key={idx}
+                            className="relative cursor-pointer"
+                            onMouseEnter={() => handleMouseEnter(cat)}
+                        >
+                            <Link
+                                to={cat.path}
+                                className="hover:text-teal-600 transition-colors duration-300"
+                            >
+                                {cat.title}
+                            </Link>
+                        </div>
+                    ))}
                 </nav>
+
+                <div
+                    className={`absolute left-0 top-[calc(90%+1px)] rounded-xl w-full bg-white shadow-lg transition-all mb-0 duration-500 overflow-hidden ${menuOpen ? "h-[240px] opacity-100 p-8" : "max-h-0 opacity-0 p-0"
+                        }`}
+                    onMouseEnter={() => setMenuOpen(true)}
+                    onMouseLeave={handleMouseLeave}
+                    style={{ marginTop: '5px' }}
+                >
+                    {activeCategory && (
+                        <div className="flex justify-between items-start">
+                            {/* Подкатегории */}
+                            <div className="grid grid-cols-2 gap-6">
+                                {activeCategory.subcategories.map((sub, idx) => (
+                                    <button
+                                        key={idx}
+                                        className="text-black font-semibold hover:text-teal-600 text-left transition-colors duration-300"
+                                        onClick={() => console.log(`Clicked on ${sub}`)}
+                                    >
+                                        {sub}
+                                    </button>
+                                ))}
+                            </div>
+
+                            {/* Картинка */}
+                            <div className="w-64 h-40 rounded-lg overflow-hidden">
+                                <img
+                                    src={activeCategory.image}
+                                    alt={activeCategory.title}
+                                    className="w-full h-full object-cover rounded-lg"
+                                />
+                            </div>
+                        </div>
+                    )}
+                </div>
+
             </header>
-            
+
         </div>
-        )
+    )
 }
 
 export default Header

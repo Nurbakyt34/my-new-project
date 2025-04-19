@@ -126,7 +126,7 @@ const ProductDetails = () => {
     };
 
     return (
-        <div className='app-container   p-12 mt-[130px]'>
+        <div className='app-container h-[800px]   p-12 mt-[130px]'>
             <Breadcrumbs />
             <div className='fle'>
 
@@ -175,12 +175,12 @@ const ProductDetails = () => {
                         <img
                             src={currentProduct?.images[currentImageIndex]}
                             alt={currentProduct?.name}
-                            className="w-full max-w-[500px] h-[470px] mt-[42px] rounded-2xl object-cover"
+                            className="w-full max-w-[500px] mb-[300px] h-[470px] mt-[42px] rounded-2xl object-cover"
                         />
                     </div>
                 </div>
 
-                <div className='mt-[-640px]'>
+                <div className='mt-[-890px] '>
 
                     <h2 className="text-3xl mt-[px] ml-[700px] mb-8 font-bold">{currentProduct?.name}</h2>
                     <p className='text-[gray] ml-[700px]'>Содержание комплекта:</p>
