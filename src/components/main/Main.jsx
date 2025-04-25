@@ -1,18 +1,19 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css'; // Подключение стилей Swiper
+import 'swiper/css';
+import { Autoplay } from 'swiper/modules';
 
-import { Autoplay } from 'swiper/modules'; // Импортирование модуля Autoplay
+import main1 from '../../assets/main1.jpg'
+import main2 from '../../assets/main2.jpg'
+import main3 from '../../assets/main3.jpg'
+import main4 from '../../assets/main4.jpg'
+import main5 from '../../assets/main5.jpg'
 
 const Main = () => {
-    const slidesData = [
-        'https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F1%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-57hvnpa00000000-2.jpg&w=1920&q=100',
-        'https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F765%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-58pnd8005fsr2-2.jpg&w=1920&q=100',
-        'https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fstorage%2Fproducts%2F2%2Fhttps-bellona-mncdn-com-mnresize-1280-720-img-image-tr-57pndpa00000000-2.jpg&w=1920&q=100',
-    ];
+    const slidesData = [main1, main2, main3, main4, main5];
 
     return (
         <Swiper
-            className='app-container '
+            className="app-container"
             spaceBetween={50}
             slidesPerView={1}
             loop={true}
@@ -20,14 +21,14 @@ const Main = () => {
                 delay: 3500,
                 disableOnInteraction: false,
             }}
-            modules={[Autoplay]} // Убедитесь, что модуль Autoplay подключен
+            modules={[Autoplay]}
         >
             {slidesData.map((image, index) => (
                 <SwiperSlide key={index}>
                     <img
                         src={image}
                         alt={`Slide ${index + 1}`}
-                        className="w-full h-[500px] mt-[199px] object-cover rounded-xl"
+                        className="w-full h-[550px] mt-[209px] object-fill rounded-xl"
                     />
                 </SwiperSlide>
             ))}

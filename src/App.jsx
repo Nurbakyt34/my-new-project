@@ -19,6 +19,7 @@ import SearchPage from './page/search/SearchPage';
 import CreatorPage from './page/creator/CreatorPage';
 import StranisPage from './page/stranis/StranisPage';
 import ScrollToTop from './components/scroll/ScrollToTop';
+import ProductCategoryPage from './page/prise/ProductCategoryPage';
 // import { useEffect } from 'react';
 
 const App = () => {
@@ -41,6 +42,7 @@ const App = () => {
             <Route path="/search" element={<SearchPage />} />
             <Route path="/creator" element={<CreatorPage />} />
             <Route path="/stranis" element={<StranisPage />} />
+            <Route path="/prise/:categoryId" element={<ProductCategoryPage/>} />
 
             <Route path="gostin" element={<GostinPage />} />
             <Route path="kravat" element={<Kravat />} />
