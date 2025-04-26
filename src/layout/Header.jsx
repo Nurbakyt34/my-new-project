@@ -91,7 +91,7 @@ const Header = () => {
 
     return (
 
-        <div className='app-container mt-[50px]'>
+        <div className='app-container mt-[50px] '>
 
             <header className="fixed  z-50 bg-white mt-[-20px]">
 

@@ -3,10 +3,10 @@ import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
 
 const About = () => {
   return (
-    <div className='app-container p-12'>
+    <div className='app-container p-16'>
 
-      <Breadcrumbs />
-      <div className=" flex ">
+      <Breadcrumbs className="ml-[-50px]"/>
+      <div className=" flex ml-[-50px] mt-10">
         <div className="max-w-4xl w-full">
           <h1 className="text-2xl font-bold mb-6">О нас</h1>
           <p className="mb-4">

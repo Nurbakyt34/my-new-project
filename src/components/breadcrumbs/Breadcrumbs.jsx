@@ -24,7 +24,7 @@ export default function Breadcrumbs() {
   if (paths.length === 0) return null;
 
   return (
-    <nav className="flex items-center space-x-2 text-teal-700 text-sm mt-[150px] font-medium ">
+    <nav className="flex items-center space-x-2 text-teal-700 text-sm mt-[160px] font-medium ">
       <Link to="/" className="hover:underline">ГЛАВНАЯ</Link>
       {paths.map((segment, index) => {
         const path = "/" + paths.slice(0, index + 1).join("/");

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { FaWhatsapp } from "react-icons/fa";
 import { LiaTelegramPlane } from "react-icons/lia";
 import { Link } from 'react-router';
+import Brand from "../assets/brand.jpg"
 
 function Footer() {
     const [isOpen, setIsOpen] = useState(false);
@@ -114,9 +115,9 @@ function Footer() {
             <div className='flex justify-between'>
 
                 <Link to="/">
-                    <div className="bg-teal-700 flex items-center justify-center text-center w-[190px] h-[35px] text-white text-[30px] font-bold text-2xl tracking-widest cursor-pointer">
-                        BELLONA
-                    </div>
+                
+                        <img className='h-22 w-22 rounded-[100%]' src={Brand} alt="" />
+                    
                 </Link>
 
 
