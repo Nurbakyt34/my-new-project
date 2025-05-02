@@ -1,11 +1,8 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
-// Создаем контекст
 const ProductContext = createContext();
 
-// Провайдер контекста
 export const ProductProvider = ({ children }) => {
-  // Загружаем товары из localStorage или используем дефолтные данные
   const loadProductsFromLocalStorage = () => {
     const savedProducts = localStorage.getItem('products');
     return savedProducts ? JSON.parse(savedProducts) : [
@@ -17,24 +14,21 @@ export const ProductProvider = ({ children }) => {
       { id: 16, title: 'Столы', image: 'https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fimages%2Ffigures%2Fobedenniy-stol.webp&w=1920&q=100' },
       { id: 17, title: 'Стулья', image: 'https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fimages%2Ffigures%2Fstul.webp&w=1920&q=100' },
       { id: 18, title: 'Журнальные столики', image: 'https://bellonamebel.kg/_next/image?url=https%3A%2F%2Fadmin.bellonamebel.kg%2Fimages%2Ffigures%2Fzhurnalniy-stolik.webp&w=1920&q=100' },
-      // другие товары
     ];
   };
 
-  // Состояние для продуктов
   const [products, setProducts] = useState(loadProductsFromLocalStorage());
 
-  // Обновление товара и синхронизация с localStorage
   const updateProduct = (id, newTitle, newImage) => {
-    setProducts((prevProducts) => {
-      const updatedProducts = prevProducts.map((product) =>
-        product.id === id ? { ...product, title: newTitle, image: newImage } : product
-      );
-      // Сохраняем обновленные продукты в localStorage
-      localStorage.setItem('products', JSON.stringify(updatedProducts));
-      return updatedProducts;
-    });
+    setProducts((prev) =>
+      prev.map((product) =>
+        product.id === id
+          ? { ...product, title: newTitle, image: newImage } // ✅ сохраняем всё остальное
+          : product
+      )
+    );
   };
+  
 
   return (
     <ProductContext.Provider value={{ products, updateProduct }}>

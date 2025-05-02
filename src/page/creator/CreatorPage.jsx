@@ -3,7 +3,7 @@ import { useProducts } from '../context/ProductContext';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 
 const CreatorPage = () => {
-  const { products, updateProduct } = useProducts(); // Доступ к данным и функции обновления
+  const { products, updateProduct } = useProducts();
   const [editingId, setEditingId] = useState(null);
   const [editedTitle, setEditedTitle] = useState('');
   const [editedImage, setEditedImage] = useState('');
@@ -15,7 +15,7 @@ const CreatorPage = () => {
   };
 
   const saveEdit = () => {
-    updateProduct(editingId, editedTitle, editedImage); // Обновляем товар в контексте
+    updateProduct(editingId, editedTitle, editedImage);
     setEditingId(null);
     setEditedTitle('');
     setEditedImage('');
@@ -30,7 +30,7 @@ const CreatorPage = () => {
   return (
     <div className="app-container p-12">
       <Breadcrumbs />
-      <h1 className="text-3xl mt-5 font-bold mb-8">Редактировать все товары</h1>
+      <h1 className="text-3xl mt-5 font-bold mb-8">Редактировать категории</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {products.map((product) => (
           <div key={product.id} className="border p-4 rounded shadow">
@@ -67,7 +67,11 @@ const CreatorPage = () => {
               </>
             ) : (
               <>
-                <img src={product.image} alt={product.title} className="h-40 w-full object-cover rounded mb-4" />
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  className="h-40 w-full object-cover rounded mb-4"
+                />
                 <h2 className="text-xl font-semibold mb-2">{product.title}</h2>
                 <button
                   onClick={() => startEdit(product)}
@@ -75,6 +79,14 @@ const CreatorPage = () => {
                 >
                   Редактировать
                 </button>
+                <div className="mt-4">
+                  <h3 className="text-sm font-semibold mb-2 text-gray-600">Товары:</h3>
+                  <ul className="text-sm list-disc list-inside">
+                    {product.items?.map((item) => (
+                      <li key={item.id}>{item.title}</li>
+                    ))}
+                  </ul>
+                </div>
               </>
             )}
           </div>
